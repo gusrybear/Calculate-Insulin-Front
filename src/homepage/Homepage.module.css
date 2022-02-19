@@ -1,0 +1,27 @@
+.container {
+    background: white;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 4rem;
+    border-style: dashed;
+}
+.header {
+    color: black;
+    border-color: #03045e;
+    padding: 1.5rem;
+    text-align: center;
+    text-justify: auto;
+    border-style: solid;
+    
+}
+p.header{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.Form{
+    color: white;
+}
+.Form1{
+    color: white;
+}
