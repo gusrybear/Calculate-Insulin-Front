@@ -1,27 +1,67 @@
 .container {
-    background: white;
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 4rem;
-    border-style: dashed;
+  background: white;
+  max-width: 800px;
+  height: 750px;
+  margin: 0 auto;
+  border: 2px solid #ee852a;
+  border-radius: 10px;
 }
 .header {
-    color: black;
-    border-color: #03045e;
-    padding: 1.5rem;
-    text-align: center;
-    text-justify: auto;
-    border-style: solid;
-    
+  color: white;
+  border: 2px solid #ee852a;
+  background-color: #ee852a;
+  padding: 1.5rem;
+  text-align: center;
+  text-justify: auto;
+  border-style: solid;
+  border-radius: 4px;
+
+  margin-bottom: 5%;
 }
-p.header{
-    font-family: 'Courier New', Courier, monospace;
+.header p {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
 }
 
-.Form{
-    color: white;
+.body {
+  padding-left: 10px;
 }
-.Form1{
-    color: white;
+
+/* :global .ant-form-item-label > label {
+  font-size: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  padding-left: 10px;
+} */
+
+.input {
+  font-size: 20px;
+  font-family: Roboto;
+  font-style: normal;
+}
+
+.output {
+  font-size: 14px;
+  font-family: Roboto;
+  font-style: normal;
+  padding-top: 20px;
+}
+
+:global
+  .ant-select.ant-cascader.ant-select-single.ant-select-allow-clear.ant-select-show-arrow {
+  max-width: 400px;
+}
+
+:global .ant-input-number-group-addon {
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 18px;
+}
+
+Space.buttonContainer {
+  background-color: red;
 }

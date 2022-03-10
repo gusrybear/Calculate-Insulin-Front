@@ -20,9 +20,10 @@ export function Homepage() {
   // all variable
   //fetch from backend
   const [insulinData, setInsulinData] = useState([]);
-  // age, weight, typeInsulin, sugarBlood, sugarTarget, quantity, unit,type, menu, carbohydrate
+  // age, weight, fac, typeInsulin, sugarBlood, sugarTarget, quantity, unit,type, menu, carbohydrate
   const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");
+  const [fac, setFac] = useState("");
 
   //ประเภท insulin ที่เลือก
   const [typeInsulin, setTypeInsulin] = useState("");
@@ -81,6 +82,11 @@ export function Homepage() {
   function onChangeWeight(value) {
     setWeight(value);
   }
+
+  function onChangeFac(value) {
+    setFac(value);
+  }
+
   //get,set typeInsulin
   const onChangeTypeInsulin = (e) => {
     setTypeInsulin(e.target.value);
@@ -106,11 +112,7 @@ export function Homepage() {
     let iff;
     let ieh;
     let carb = carbohydrate;
-    if (a <= 5) {
-      tdd = w * 0.6;
-    } else {
-      tdd = w;
-    }
+    tdd = fac * w;
     //set BSI
     setBsi(tdd * 0.5);
     //set NOC
@@ -152,6 +154,7 @@ export function Homepage() {
     fetchInsulin();
   }, []);
 
+  useEffect(() => {}, [fac]);
   useEffect(() => {}, [carbohydrate]);
 
   useEffect(() => {}, [typeInsulin]);
@@ -172,96 +175,104 @@ export function Homepage() {
       <div className={styles.header}>
         <p>Program Calculate Insulin</p>
       </div>
-      <div className={styles.input}>
-        <Form name="complex-form" className={styles.Form}>
-          <Form.Item label="อายุ" className={styles.Form1}>
-            <InputNumber
-              addonAfter="ปี"
-              min={1}
-              max={90}
-              onChange={onChangeAge}
-            ></InputNumber>
-          </Form.Item>
 
-          <Form.Item label="น้ำหนัก">
-            <InputNumber
-              addonAfter="กิโลกรัม"
-              min={1}
-              max={200}
-              onChange={onChangeWeight}
-            ></InputNumber>
-          </Form.Item>
+      <div className={styles.body}>
+        <div className={styles.input}>
+          <Form name="complex-form">
+            <Form.Item label="อายุ">
+              <InputNumber
+                addonAfter="ปี"
+                min={1}
+                max={90}
+                onChange={onChangeAge}
+              ></InputNumber>
+            </Form.Item>
 
-          <Form.Item label="ชนิดของ Insulin ที่ใช้" name="typeInsulin">
-            <Radio.Group onChange={onChangeTypeInsulin} value={typeInsulin}>
-              <Radio value={"RI"}>
-                Regular insulin (RI) [Humulin R&reg;, Actrapid HM&reg;]
-              </Radio>
-              <Radio value={"RAA"}>
-                Rapid-acting analogues (RAA) [Humalog&reg;, NovoRapid&reg;,
-                Apidra Solostar&reg;]
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
+            <Form.Item label="น้ำหนัก">
+              <InputNumber
+                addonAfter="กิโลกรัม"
+                min={1}
+                max={200}
+                onChange={onChangeWeight}
+              ></InputNumber>
+            </Form.Item>
 
-          <Form.Item label="ระดับน้ำตาลในเลือด">
-            <InputNumber
-              addonAfter="mg/dL"
-              min={0}
-              max={400}
-              onChange={onChangeSugarBlood}
-            ></InputNumber>
-          </Form.Item>
+            <Form.Item label="ตัวคูณปริมาณอินซูลินที่แพทย์กำหนดให้">
+              <InputNumber
+                addonAfter="ยูนิต/นำ้หนักตัว 1 kg/1 วัน"
+                onChange={onChangeFac}
+              ></InputNumber>
+            </Form.Item>
 
-          <Form.Item label="ระดับน้ำตาลเป้าหมาย">
-            <InputNumber
-              addonAfter="mg/dL"
-              min={0}
-              max={200}
-              onChange={onChangeSugarTarget}
-            ></InputNumber>
-          </Form.Item>
+            <Form.Item label="ชนิดของ Insulin ที่ใช้" name="typeInsulin">
+              <Radio.Group onChange={onChangeTypeInsulin} value={typeInsulin}>
+                <Radio value={"RI"}>
+                  Regular insulin (RI) [Humulin R&reg;, Actrapid HM&reg;]
+                </Radio>
+                <Radio value={"RAA"}>
+                  Rapid-acting analogues (RAA) [Humalog&reg;, NovoRapid&reg;,
+                  Apidra Solostar&reg;]
+                </Radio>
+              </Radio.Group>
+            </Form.Item>
 
-          <Form.Item label="อาหารที่รับประทาน">
-            <Cascader
-              options={typeList}
-              onChange={onChangeDropdown}
-              placeholder="กรุณาเลือกประเภทเมนู และเมนู"
-              size="middle"
-            />
-          </Form.Item>
+            <Form.Item label="ระดับน้ำตาลในเลือด">
+              <InputNumber
+                addonAfter="mg/dL"
+                min={0}
+                max={400}
+                onChange={onChangeSugarBlood}
+              ></InputNumber>
+            </Form.Item>
 
-          <Form.Item label="จำนวนที่รับประทาน">
-            <InputNumber
-              addonAfter={unit}
-              min={0}
-              max={100}
-              onChange={onChangeInputAmount}
-            ></InputNumber>
-          </Form.Item>
-        </Form>
-      </div>
+            <Form.Item label="ระดับน้ำตาลเป้าหมาย">
+              <InputNumber
+                addonAfter="mg/dL"
+                min={0}
+                max={200}
+                onChange={onChangeSugarTarget}
+              ></InputNumber>
+            </Form.Item>
 
-      <Space>
-        <Button type="primary" shape="round" size="large" onClick={calculate}>
-          Primary Button
-        </Button>
-        <Button
-          type="primary"
-          shape="round"
-          size="large"
-          danger
-          onClick={refreshPage}
-        >
-          Reset Button
-        </Button>
-      </Space>
+            <Form.Item label="อาหารที่รับประทาน">
+              <Cascader
+                options={typeList}
+                onChange={onChangeDropdown}
+                placeholder="กรุณาเลือกประเภทเมนู และเมนู"
+                size="middle"
+              />
+            </Form.Item>
 
-      <div className="output">
-        <Space>
-          <p>ปริมาณอินซูลินพื้นฐานที่ต้องได้รับ: {bsi}</p>
-          <p>ปริมาณอินซูลินสำหรับมื้ออาหาร: {bli}</p>
+            <Form.Item label="จำนวนที่รับประทาน">
+              <InputNumber
+                addonAfter={unit}
+                min={0}
+                max={100}
+                onChange={onChangeInputAmount}
+              ></InputNumber>
+            </Form.Item>
+          </Form>
+        </div>
+
+        <Space className={styles.buttonContainer}>
+          <Button type="primary" shape="round" size="large" onClick={calculate}>
+            คำนวณ
+          </Button>
+          <Button
+            type="primary"
+            shape="round"
+            size="large"
+            danger
+            onClick={refreshPage}
+          >
+            รีเซ็ต
+          </Button>
         </Space>
+
+        <div className={styles.output}>
+            <p>ปริมาณอินซูลินพื้นฐานที่ต้องได้รับ: {bsi} unit</p>
+            <p>ปริมาณอินซูลินสำหรับมื้ออาหาร: {bli} unit</p>
+        </div>
       </div>
     </div>
   );
