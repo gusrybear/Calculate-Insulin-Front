@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 //import antdesign
 import {
-  Layout,
   Space,
   Button,
   Form,
@@ -16,7 +15,7 @@ import "antd/dist/antd.css";
 import axios from "axios";
 
 export function Homepage() {
-  const { Header, Footer, Sider, Content } = Layout;
+  // const { Header, Footer, Sider, Content } = Layout;
   // all variable
   //fetch from backend
   const [insulinData, setInsulinData] = useState([]);
@@ -105,13 +104,11 @@ export function Homepage() {
   }
 
   function calculate() {
-    let a = age;
     let w = weight;
     let tdd;
     let noc;
     let iff;
     let ieh;
-    let carb = carbohydrate;
     tdd = fac * w;
     //set BSI
     setBsi(tdd * 0.5);
